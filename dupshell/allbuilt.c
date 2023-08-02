@@ -1,22 +1,22 @@
 #include "shell.h"
 
-int shellby_alias(char **args, char __attribute__((__unused__)) **front);
 void set_alias(char *var_name, char *value);
 void print_alias(alias_t *alias);
+int shellby_alias(char **args, char __attribute__((__unused__)) **front);
 
 /**
- * shellby_alias - Builtin command that either prints all aliases, specific
- * aliases, or sets an alias.
- * @args: An array of arguments.
- * @front: A double pointer to the beginning of args.
+ * shellby_alias - This is a builtin command that prints all aliases
+ * @args: The arrays of args.
+ * @front: Double pointer to the start of arguments.
  *
- * Return: If an error occurs - -1.
+ * Return: If error occurs - -1.
  *         Otherwise - 0.
  */
+
 int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 {
 	alias_t *temp = aliases;
-	int i, ret = 0;
+	int t, ret = 0;
 	char *value;
 
 	if (!args[0])
@@ -28,15 +28,15 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 		}
 		return (ret);
 	}
-	for (i = 0; args[i]; i++)
+	for (t = 0; args[t]; t++)
 	{
 		temp = aliases;
-		value = _strchr(args[i], '=');
+		value = _strchr(args[t], '=');
 		if (!value)
 		{
 			while (temp)
 			{
-				if (_strcmp(args[i], temp->name) == 0)
+				if (_strcmp(args[t], temp->name) == 0)
 				{
 					print_alias(temp);
 					break;
@@ -44,20 +44,21 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 				temp = temp->next;
 			}
 			if (!temp)
-				ret = create_error(args + i, 1);
+				ret = create_error(args + t, 1);
 		}
 		else
-			set_alias(args[i], value);
+			set_alias(args[t], value);
 	}
 	return (ret);
 }
 
 /**
- * set_alias - Will either set an existing alias 'name' with a new value,
- * 'value' or creates a new alias with 'name' and 'value'.
- * @var_name: Name of the alias.
- * @value: Value of the alias. First character is a '='.
+ * set_alias - Code will set an existing alias 'name' with a new value,
+ * or creates new alias.
+ * @value:The value of alias. 1st char is a '='.
+ * @var_name: Name of new alias.
  */
+
 void set_alias(char *var_name, char *value)
 {
 	alias_t *temp = aliases;
@@ -91,9 +92,10 @@ void set_alias(char *var_name, char *value)
 }
 
 /**
- * print_alias - Prints the alias in the format name='value'.
- * @alias: Pointer to an alias.
+ * print_alias - Code prints the alias in new format name='value'.
+ * @alias: The pointer to an alias.
  */
+
 void print_alias(alias_t *alias)
 {
 	char *alias_string;
@@ -110,27 +112,29 @@ void print_alias(alias_t *alias)
 	write(STDOUT_FILENO, alias_string, len);
 	free(alias_string);
 }
+
 /**
- * replace_aliases - Goes through the arguments and replace any matching alias
- * with their value.
- * @args: 2D pointer to the arguments.
+ * replace_aliases - Code goes through the args and replace matching alias
+ * with their respective values.
+ * @args: The pointer to args.
  *
- * Return: 2D pointer to the arguments.
+ * Return: pointer to the arguments.
  */
+
 char **replace_aliases(char **args)
 {
 	alias_t *temp;
-	int i;
+	int a;
 	char *new_value;
 
 	if (_strcmp(args[0], "alias") == 0)
 		return (args);
-	for (i = 0; args[i]; i++)
+	for (a = 0; args[a]; a++)
 	{
 		temp = aliases;
 		while (temp)
 		{
-			if (_strcmp(args[i], temp->name) == 0)
+			if (_strcmp(args[a], temp->name) == 0)
 			{
 				new_value = malloc(sizeof(char) * (_strlen(temp->value) + 1));
 				if (!new_value)
@@ -139,9 +143,9 @@ char **replace_aliases(char **args)
 					return (NULL);
 				}
 				_strcpy(new_value, temp->value);
-				free(args[i]);
-				args[i] = new_value;
-				i--;
+				free(args[a]);
+				args[a] = new_value;
+				a--;
 				break;
 			}
 			temp = temp->next;

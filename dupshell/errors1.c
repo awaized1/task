@@ -1,23 +1,24 @@
 #include "shell.h"
 
+int create_error(char **args, int err);
 int num_len(int num);
 char *_itoa(int num);
-int create_error(char **args, int err);
 
 /**
- * num_len - Counts the digit length of a number.
- * @num: The number to measure.
+ * num_len - Code counts length of digits in a number.
+ * @num: Number to measure.
  *
- * Return: The digit length.
+ * Return: Length of digit.
  */
+
 int num_len(int num)
 {
 	unsigned int num1;
-	int len = 1;
+	int length = 1;
 
 	if (num < 0)
 	{
-		len++;
+		length++;
 		num1 = num * -1;
 	}
 	else
@@ -26,19 +27,20 @@ int num_len(int num)
 	}
 	while (num1 > 9)
 	{
-		len++;
+		length++;
 		num1 /= 10;
 	}
 
-	return (len);
+	return (length);
 }
 
 /**
- * _itoa - Converts an integer to a string.
- * @num: The integer.
+ * _itoa - Code converts an int to str.
+ * @num: Integer.
  *
- * Return: The converted string.
+ * Return: Converted string.
  */
+
 char *_itoa(int num)
 {
 	char *buffer;
@@ -71,14 +73,14 @@ char *_itoa(int num)
 	return (buffer);
 }
 
-
 /**
- * create_error - Writes a custom error message to stderr.
- * @args: An array of arguments.
- * @err: The error value.
+ * create_error - Code writes custom error msg to stderr.
+ * @err: Error value.
+ * @args: Array of args.
  *
- * Return: The error value.
+ * Return: Error value(err).
  */
+
 int create_error(char **args, int err)
 {
 	char *error;
