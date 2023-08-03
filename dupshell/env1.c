@@ -29,7 +29,6 @@ int shellby_env(char **args, char __attribute__((__unused__)) **front)
 		write(STDOUT_FILENO, environ[num], _strlen(environ[num]));
 		write(STDOUT_FILENO, &nc, 1);
 	}
-
 	(void)args;
 	return (0);
 }
@@ -132,6 +131,5 @@ int shellby_unsetenv(char **args, char __attribute__((__unused__)) **front)
 	free(environ);
 	environ = new_environ;
 	environ[size - 1] = NULL;
-
 	return (0);
 }

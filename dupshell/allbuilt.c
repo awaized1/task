@@ -49,6 +49,7 @@ int shellby_alias(char **args, char __attribute__((__unused__)) **front)
 		else
 			set_alias(args[t], value);
 	}
+
 	return (ret);
 }
 
@@ -151,6 +152,5 @@ char **replace_aliases(char **args)
 			temp = temp->next;
 		}
 	}
-
 	return (args);
 }

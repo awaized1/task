@@ -57,6 +57,7 @@ int call_args(char **args, char **front, int *exe_ret)
 
 	if (!args[0])
 		return (*exe_ret);
+
 	for (index = 0; args[index]; index++)
 	{
 		if (_strncmp(args[index], "||", 2) == 0)
@@ -98,6 +99,7 @@ int call_args(char **args, char **front, int *exe_ret)
 	}
 	args = replace_aliases(args);
 	ret = run_args(args, front, exe_ret);
+
 	return (ret);
 }
 

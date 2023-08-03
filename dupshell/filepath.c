@@ -25,6 +25,7 @@ int cant_open(char *file_path)
 	if (!error)
 	{
 		free(hist_str);
+
 		return (127);
 	}
 
@@ -120,5 +121,6 @@ int proc_file_commands(char *file_path, int *exe_ret)
 	ret = call_args(args, front, exe_ret);
 
 	free(front);
+
 	return (ret);
 }

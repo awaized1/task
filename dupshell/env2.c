@@ -52,6 +52,7 @@ void free_env(void)
 
 	for (index = 0; environ[index]; index++)
 		free(environ[index]);
+
 	free(environ);
 }
 

@@ -28,6 +28,7 @@ char *error_env(char **args)
 	if (!error)
 	{
 		free(hist_str);
+
 		return (NULL);
 	}
 
@@ -87,6 +88,7 @@ char *error_2_exit(char **args)
 	if (!error)
 	{
 		free(hist_str);
+
 		return (NULL);
 	}
 

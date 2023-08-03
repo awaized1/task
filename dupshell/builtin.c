@@ -1,4 +1,5 @@
 #include "shell.h"
+
 int shellby_cd(char **args, char __attribute__((__unused__)) **front);
 int shellby_help(char **args, char __attribute__((__unused__)) **front);
 int (*get_builtin(char *command))(char **args, char **front);
@@ -24,6 +25,7 @@ int (*get_builtin(char *command))(char **args, char **front)
 		{ "help", shellby_help },
 		{ NULL, NULL }
 	};
+
 	int a;
 
 	for (a = 0; funcs[a].name; a++)
@@ -159,6 +161,7 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 	free(oldpwd);
 	free(pwd);
 	free(dir_info);
+
 	return (0);
 }
 

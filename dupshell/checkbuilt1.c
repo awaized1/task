@@ -102,5 +102,6 @@ void help_help(void)
 	msg = "\n      help [BUILTIN NAME]\n\tSee specific information on each ";
 	write(STDOUT_FILENO, msg, _strlen(msg));
 	msg = "builtin command.\n";
+
 	write(STDOUT_FILENO, msg, _strlen(msg));
 }
