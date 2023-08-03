@@ -1,15 +1,16 @@
 #include "shell.h"
 
-char *fill_path_dir(char *path);
 list_t *get_path_dir(char *path);
+char *fill_path_dir(char *path);
 
 /**
- * get_location - Locates a command in the PATH.
- * @command: The command to locate.
+ * get_location - Code locates cmd in PATH.
+ * @command: Command to locate.
  *
- * Return: If an error occurs or the command cannot be located - NULL.
- *         Otherwise - the full pathname of the command.
+ * Return: If error occurs or command cannot be located - NULL.
+ *         Otherwise - full pathname of command.
  */
+
 char *get_location(char *command)
 {
 	char **path, *temp;
@@ -32,7 +33,6 @@ char *get_location(char *command)
 		_strcpy(temp, dirs->dir);
 		_strcat(temp, "/");
 		_strcat(temp, command);
-
 		if (stat(temp, &st) == 0)
 		{
 			free_list(head);
@@ -49,16 +49,17 @@ char *get_location(char *command)
 }
 
 /**
- * fill_path_dir - Copies path but also replaces leading/sandwiched/trailing
- *   colons (:) with current working directory.
- * @path: The colon-separated list of directories.
+ * fill_path_dir - Code copies path and also replaces /sandwiched/trailing
+ *   /leading colons with the current working dir.
+ * @path: Colon-separated list of dir.
  *
- * Return: A copy of path with any leading/sandwiched/trailing colons replaced
- *   with the current working directory.
+ * Return: Copy of path with any sandwiched/trailing/leading colons replaced
+ *   with the current working dir.
  */
+
 char *fill_path_dir(char *path)
 {
-	int i, length = 0;
+	int i, len = 0;
 	char *path_copy, *pwd;
 
 	pwd = *(_getenv("PWD")) + 4;
@@ -67,17 +68,18 @@ char *fill_path_dir(char *path)
 		if (path[i] == ':')
 		{
 			if (path[i + 1] == ':' || i == 0 || path[i + 1] == '\0')
-				length += _strlen(pwd) + 1;
+				len += _strlen(pwd) + 1;
 			else
-				length++;
+				len++;
 		}
 		else
-			length++;
+			len++;
 	}
-	path_copy = malloc(sizeof(char) * (length + 1));
+	path_copy = malloc(sizeof(char) * (len + 1));
 	if (!path_copy)
 		return (NULL);
 	path_copy[0] = '\0';
+
 	for (i = 0; path[i]; i++)
 	{
 		if (path[i] == ':')
@@ -104,12 +106,13 @@ char *fill_path_dir(char *path)
 }
 
 /**
- * get_path_dir - Tokenizes a colon-separated list of
- *                directories into a list_s linked list.
- * @path: The colon-separated list of directories.
+ * get_path_dir - Code tokenizes colon-separated list of
+ *                dir into a list_s linked list.
+ * @path: A colon-separated list of dir.
  *
- * Return: A pointer to the initialized linked list.
+ * Return: The pointer to initialized linked list.
  */
+
 list_t *get_path_dir(char *path)
 {
 	int index;
@@ -121,6 +124,7 @@ list_t *get_path_dir(char *path)
 		return (NULL);
 	dirs = _strtok(path_copy, ":");
 	free(path_copy);
+
 	if (!dirs)
 		return (NULL);
 

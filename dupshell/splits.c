@@ -1,39 +1,41 @@
 #include "shell.h"
 
+char **_strtok(char *line, char *delim);
 int token_len(char *str, char *delim);
 int count_tokens(char *str, char *delim);
-char **_strtok(char *line, char *delim);
 
 /**
- * token_len - Locates the delimiter index marking the end
- *             of the first token contained within a string.
- * @str: The string to be searched.
- * @delim: The delimiter character.
+ * token_len - Code locates delimiter index marking end
+ *             of first token contained within string.
+ * @str: String to be searched.
+ * @delim: Delimiter character.
  *
- * Return: The delimiter index marking the end of
- *         the intitial token pointed to be str.
+ * Return: Delim index marking the end of
+ *         intitial token pointed to be string.
  */
+
 int token_len(char *str, char *delim)
 {
-	int index = 0, len = 0;
+	int index = 0, length = 0;
 
 	while (*(str + index) && *(str + index) != *delim)
 	{
-		len++;
+		length++;
 		index++;
 	}
 
-	return (len);
+	return (length);
 }
 
 /**
- * count_tokens - Counts the number of delimited
- *                words contained within a string.
- * @str: The string to be searched.
- * @delim: The delimiter character.
+ * count_tokens - Code counts the num of delimited
+ *                words that is contained within a string.
+ * @str: String to be searched.
+ * @delim: Delimiter char.
  *
- * Return: The number of words contained within str.
+ * Return: Number of words contained in string
  */
+
 int count_tokens(char *str, char *delim)
 {
 	int index, tokens = 0, len = 0;
@@ -54,12 +56,13 @@ int count_tokens(char *str, char *delim)
 }
 
 /**
- * _strtok - Tokenizes a string.
- * @line: The string.
- * @delim: The delimiter character to tokenize the string by.
+ * _strtok - Code tokenizes string.
+ * @line: String.
+ * @delim: Delimiter char to tokenize the string by.
  *
- * Return: A pointer to an array containing the tokenized words.
+ * Return: Pointer to an array containing tokenized words.
  */
+
 char **_strtok(char *line, char *delim)
 {
 	char **ptr;
@@ -70,6 +73,7 @@ char **_strtok(char *line, char *delim)
 		return (NULL);
 
 	ptr = malloc(sizeof(char *) * (tokens + 2));
+
 	if (!ptr)
 		return (NULL);
 

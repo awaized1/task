@@ -1,17 +1,18 @@
 #include "shell.h"
 
+void logical_ops(char *line, ssize_t *new_len);
 void handle_line(char **line, ssize_t read);
 ssize_t get_new_len(char *line);
-void logical_ops(char *line, ssize_t *new_len);
 
 /**
- * handle_line - Partitions a line read from standard input as needed.
- * @line: A pointer to a line read from standard input.
- * @read: The length of line.
+ * handle_line - Code partitions a line read from stdin.
+ * @line: Pointer to the line read from stdin.
+ * @read: Len of line.
  *
- * Description: Spaces are inserted to separate ";", "||", and "&&".
+ * Description: Spaces inserted to separate ";", "||", and "&&".
  *              Replaces "#" with '\0'.
  */
+
 void handle_line(char **line, ssize_t read)
 {
 	char *old_line, *new_line;
@@ -25,6 +26,7 @@ void handle_line(char **line, ssize_t read)
 	new_line = malloc(new_len + 1);
 	if (!new_line)
 		return;
+
 	j = 0;
 	old_line = *line;
 	for (i = 0; old_line[i]; i++)
@@ -96,13 +98,12 @@ void handle_line(char **line, ssize_t read)
 }
 
 /**
- * get_new_len - Gets the new length of a line partitioned
- *               by ";", "||", "&&&", or "#".
- * @line: The line to check.
+ * get_new_len - Code to get new length of line partitioned by ";",
+ *		 "||", "&&&", or "#".
+ * @line: Line to be checked
  *
- * Return: The new length of the line.
- *
- * Description: Cuts short lines containing '#' comments with '\0'.
+ * Return: New length of line.
+ * Description: Cuts short lines that contains '#' comments with '\0'.
  */
 
 ssize_t get_new_len(char *line)
@@ -156,31 +157,34 @@ ssize_t get_new_len(char *line)
 	}
 	return (new_len);
 }
+
 /**
- * logical_ops - Checks a line for logical operators "||" or "&&".
- * @line: A pointer to the character to check in the line.
- * @new_len: Pointer to new_len in get_new_len function.
+ * logical_ops - Code checks a line for logical operators "||" or "&&"
+ * @new_len: The pointer to new_len in get_new_len.
+ * @line: Pointer to char to check in line.
  */
+
 void logical_ops(char *line, ssize_t *new_len)
 {
-	char previous, current, next;
+	char prev, current, next;
 
-	previous = *(line - 1);
+	prev = *(line - 1);
 	current = *line;
 	next = *(line + 1);
 
 	if (current == '&')
 	{
-		if (next == '&' && previous != ' ')
+		if (next == '&' && prev != ' ')
 			(*new_len)++;
-		else if (previous == '&' && next != ' ')
+		else if (prev == '&' && next != ' ')
 			(*new_len)++;
 	}
+
 	else if (current == '|')
 	{
-		if (next == '|' && previous != ' ')
+		if (next == '|' && prev != ' ')
 			(*new_len)++;
-		else if (previous == '|' && next != ' ')
+		else if (prev == '|' && next != ' ')
 			(*new_len)++;
 	}
 }

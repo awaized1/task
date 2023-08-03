@@ -4,26 +4,27 @@ void sig_handler(int sig);
 int execute(char **args, char **front);
 
 /**
- * sig_handler - Prints a new prompt upon a signal.
- * @sig: The signal.
+ * sig_handler - Code prints new prompt upon signal.
+ * @sig: Signal.
  */
+
 void sig_handler(int sig)
 {
 	char *new_prompt = "\n#cisfun$ ";
-
 	(void)sig;
 	signal(SIGINT, sig_handler);
 	write(STDIN_FILENO, new_prompt, 10);
 }
 
 /**
- * execute - Executes a command in a child process.
- * @args: An array of arguments.
- * @front: A double pointer to the beginning of args.
+ * execute - Code executes a command in child process.
+ * @front: Double pointer to the start of arguments.
+ * @args: Array of args.
  *
- * Return: If an error occurs - a corresponding error code.
- *         O/w - The exit value of the last executed command.
+ * Return: If error occurs - The corresponding error code.
+ *         Otherwise - Exit value of last command.
  */
+
 int execute(char **args, char **front)
 {
 	pid_t child_pid;
@@ -75,12 +76,13 @@ int execute(char **args, char **front)
 }
 
 /**
- * main - Runs a simple UNIX command interpreter.
- * @argc: The number of arguments supplied to the program.
- * @argv: An array of pointers to the arguments.
+ * main - Code runs a simple UNIX cmd interpreter.
+ * @argc: Number of args supplied to program.
+ * @argv: Array of pointers to args.
  *
- * Return: The return value of the last executed command.
+ * Return: The return val of last executed cmd.
  */
+
 int main(int argc, char *argv[])
 {
 	int ret = 0, retn;
@@ -94,6 +96,7 @@ int main(int argc, char *argv[])
 
 	*exe_ret = 0;
 	environ = _copyenv();
+
 	if (!environ)
 		exit(-100);
 

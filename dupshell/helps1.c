@@ -1,29 +1,30 @@
 #include "shell.h"
 
-char *get_args(char *line, int *exe_ret);
-int call_args(char **args, char **front, int *exe_ret);
 int run_args(char **args, char **front, int *exe_ret);
 int handle_args(int *exe_ret);
 int check_args(char **args);
+char *get_args(char *line, int *exe_ret);
+int call_args(char **args, char **front, int *exe_ret);
 
 /**
- * get_args - Gets a command from standard input.
- * @line: A buffer to store the command.
- * @exe_ret: The return value of the last executed command.
+ * get_args - Code gets a command from stdin.
+ * @line: Buffer to store command.
+ * @exe_ret: The return value of most recent executed command.
  *
- * Return: If an error occurs - NULL.
- *         Otherwise - a pointer to the stored command.
+ * Return: If error occurs - NULL.
+ *         Otherwise - the pointer to stored command.
  */
+
 char *get_args(char *line, int *exe_ret)
 {
-	size_t n = 0;
+	size_t b = 0;
 	ssize_t read;
 	char *prompt = "$ ";
 
 	if (line)
 		free(line);
 
-	read = _getline(&line, &n, STDIN_FILENO);
+	read = _getline(&line, &b, STDIN_FILENO);
 	if (read == -1)
 		return (NULL);
 	if (read == 1)
@@ -42,13 +43,14 @@ char *get_args(char *line, int *exe_ret)
 }
 
 /**
- * call_args - Partitions operators from commands and calls them.
- * @args: An array of arguments.
- * @front: A double pointer to the beginning of args.
- * @exe_ret: The return value of the parent process' last executed command.
+ * call_args - Code to partition the operators from commands and calls them
+ * @front: Double pointer to the start of arguments.
+ * @args: Array of args.
+ * @exe_ret: Return val of parent process' last executed command.
  *
- * Return: The return value of the last executed command.
+ * Return: Return value of last executed cmd.
  */
+
 int call_args(char **args, char **front, int *exe_ret)
 {
 	int ret, index;
@@ -100,16 +102,17 @@ int call_args(char **args, char **front, int *exe_ret)
 }
 
 /**
- * run_args - Calls the execution of a command.
- * @args: An array of arguments.
- * @front: A double pointer to the beginning of args.
- * @exe_ret: The return value of the parent process' last executed command.
+ * run_args - Code calls the execution of cmd.
+ * @args: Array of args
+ * @front: Double pointer to the start of arguments.
+ * @exe_ret: Return value of parent process' last executed command.
  *
- * Return: The return value of the last executed command.
+ * Return: Return value of most recently executed command.
  */
+
 int run_args(char **args, char **front, int *exe_ret)
 {
-	int ret, i;
+	int ret, a;
 	int (*builtin)(char **args, char **front);
 
 	builtin = get_builtin(args[0]);
@@ -128,20 +131,21 @@ int run_args(char **args, char **front, int *exe_ret)
 
 	hist++;
 
-	for (i = 0; args[i]; i++)
-		free(args[i]);
+	for (a = 0; args[a]; a++)
+		free(args[a]);
 
 	return (ret);
 }
 
 /**
- * handle_args - Gets, calls, and runs the execution of a command.
- * @exe_ret: The return value of the parent process' last executed command.
+ * handle_args - Code gets, calls, and executes a command
+ * @exe_ret: Return value of the parent process' recently executed command
  *
- * Return: If an end-of-file is read - END_OF_FILE (-2).
- *         If the input cannot be tokenized - -1.
- *         O/w - The exit value of the last executed command.
+ * Return: If eof is read - END_OF_FILE (-2).
+ *         If input cannot be tokenized - -1.
+ *         Otherwise - The exit value of the recently executed command.
  */
+
 int handle_args(int *exe_ret)
 {
 	int ret = 0, index;
@@ -182,12 +186,13 @@ int handle_args(int *exe_ret)
 }
 
 /**
- * check_args - Checks if there are any leading ';', ';;', '&&', or '||'.
- * @args: 2D pointer to tokenized commands and arguments.
+ * check_args - Code checks if there are leading ';', ';;', '&&', or '||'.
+ * @args: Pointer to tokenized commands and args
  *
- * Return: If a ';', '&&', or '||' is placed at an invalid position - 2.
+ * Return: If a ';', '&&', or '||' is placed in an invalid position - 2.
  *   Otherwise - 0.
  */
+
 int check_args(char **args)
 {
 	size_t i;
